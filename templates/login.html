@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)https://user.news.cn/sso/login -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link href="https://user.news.cn/xhw_favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <title>个人登录</title>
+    <meta http-equiv="X-UA-Compatible" content="edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pbase.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pcommon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/puser_login.css') }}">
+</head>
+<body>
+<div class="main">
+
+    <style>
+        .show {
+            display: block;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .clear {
+            clear: both;
+            height: 0;
+            font-size: 0;
+            overflow: hidden;
+        }
+
+        #topHeader {
+            height: 32px;
+            text-align: center;
+            border-bottom: 1px solid #c9c9ca;
+            background: #f9f7f4;
+        }
+
+        #topHeader .top {
+            width: 1000px;
+            margin: 0 auto;
+            height: inherit;
+            padding: 0;
+            border: 0;
+            outline: none;
+            list-style: none;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        #topHeader a {
+            float: left;
+            height: 32px;
+            line-height: 32px;
+            color: #000;
+            margin: 0 10px;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            text-decoration: none;
+            padding: 0;
+            font-weight: normal;
+            font-style: normal;
+            font-family: "宋体";
+        }
+
+        .widthMain {
+            margin: 0 auto;
+            width: 1000px;
+            padding: 10px;
+        }
+
+        .xhw-logo-font {
+            font-size: 18px;
+            line-height: 85px;
+            color: #0272b4;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+        .login-info {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .login-info p {
+            font-size: 14px;
+        }
+
+        .xhw-bulefont {
+            color: #0272b4;
+        }
+    </style>
+    <!--头部-->
+    <div class="widthMain" style="border-bottom: 1px solid #0272b4; position: relative;">
+        <a class="fl" href="" target="_blank"><img alt="logo" src="{{ url_for('static', filename='img/logo.jpg') }}"></a>
+        <p class="fl xhw-logo-font">全能的django</p>
+        <div class="login-info">
+            <p class="hide" id="isreg_show">已有账号，<span class="xhw-bulefont pointer goto_xhwlogin">请登录</span></p>
+            <p class="hide" id="notlogin_show"><span class="xhw-bulefont pointer goto_xhwlogin">登录</span><span
+                    class="xhw-bulefont">&nbsp;|&nbsp;</span><span class="xhw-bulefont pointer"
+                                                                   id="goto_xhwreg">注册</span></p>
+            <p class="hide" id="login_show">您好，<span class="xhw-bulefont" id="xhwlogin_name"></span></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--end-->
+
+    <!--主体正文开始-->
+    <div class="login-bg">
+        <div class="login-div" style="background: url('img/xhw_inset.png') no-repeat -10px -10px;">
+        <div class="fr login-area">
+            <div class="login-way">
+                <span class="login-way-active pointer">密码登录</span>
+                <!-- <span class="ml80 pointer">扫码登录</span> -->
+            </div>
+            <div class="loginpwd-way">
+                <form action="">
+                <div style="position: relative;">
+                    <input name='username' class="logininfo mt15" id="loginname" type="text" maxlength="60" placeholder="手机号码/邮箱/用户名">
+                </div>
+                <div style="position: relative;">
+                    <input name='password' class="logininfo mt15" id="password" type="password" placeholder="请输入密码">
+                </div>
+                <div id="div_verifycode" class="mt15 hide">
+                    <input style="width:200px;" maxlength="4" class="logininfo num" id="verifycode" type="text" placeholder="请输入验证码">
+                    <div class="fr pointer" id="code" style="width: 80px; height: 35px; background-image: url(&quot;/sso/verifyimg_edit?rd=0.7816013449687933&quot;);"></div>
+                </div>
+                <span class="fl mt15 errorinfo" id="errorinfo"></span>
+                <!-- <div class="fl mt15"><input type="checkbox" value="tendays" /><span class="tenday-login">&nbsp;十天内免登陆</span></div> -->
+                <span class="fr mt15 mr5 forgetpwd">忘记密码？</span>
+                <div class="clear"></div>
+                <input class="mt15 btn-login themebgc" id="btn-login" style="color: #FFF;" value="登录" type="submit" formmethod="post">
+                </form>
+                <input class="mt15 btn-login" id="btn-reg" style="color: #0071b4; background-color: #e4f3fb;" value="注册" type="button" onclick="location.href='{{ url_for('views1.register_user') }}'">
+                <div class="fr mt15 third-party-login">
+
+                    <span class="third-party-login-span fl ml10 mr10">|</span>
+                    <span class="third-party-login-span fl pointer" id="qq"><img class="fl mr5" src="./登录_files/qq.png"
+                                                                                 alt="QQ" title="QQ">QQ</span>
+
+
+                    <span class="third-party-login-span fl ml10 mr10">|</span>
+                    <span class="third-party-login-span fl pointer" id="weibo"><img class="fl mr5"
+                                                                                    src="./登录_files/weibo.png" alt="微博"
+                                                                                    title="微博">微博</span>
+
+
+                    <span class="third-party-login-span fl ml10 mr10">|</span>
+                    <span class="third-party-login-span fl pointer" id="wechat"><img class="fl mr5"
+                                                                                     src="./登录_files/weixin.png"
+                                                                                     alt="微信" title="微信">微信</span>
+
+
+                </div>
+            </div>
+            <div class="loginscan-way hide">
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <input id="servicecode" type="hidden" name="servicecode" value="">
+    <input id="gourl" type="hidden" name="gourl" value="">
+    <input id="extargs" type="hidden" name="extargs" value="">
+</div>
+</div>
+
+<style>
+    .adBottom {
+        background: #FFF;
+        padding: 20px 0;
+    }
+
+    .footer {
+        font-size: 12px;
+        font-family: "宋体";
+        color: #454545;
+        line-height: 22px;
+        padding: 10px 0 30px 0;
+        background: #FFF;
+        text-align: center;
+    }
+</style>
+<div id="bottomBody">
+    <div class="adBottom domPC">
+        <div class="widthMain"></div>
+    </div>
+    <div class="domMobile"></div>
+    <div class="footer">
+        <p>Copyright © 2000 - 2018 XINHUANET.com　All Rights Reserved.</p>
+        <p>制作单位：新华网股份有限公司　　版权所有 新华网股份有限公司</p>
+    </div>
+</div>
+
+
+</body>
+</html>

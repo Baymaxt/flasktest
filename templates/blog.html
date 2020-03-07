@@ -1,0 +1,150 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <div class="container">
+      <div class="row">
+        <!-- Latest Posts -->
+        <main class="posts-listing col-lg-8"> 
+          <div class="container">
+            <div class="row">
+              {% for i in range(0, article_num, 2) %}
+              <!-- post -->
+              <div class="post col-xl-6">
+                <div class="post-thumbnail"><a href="post.html"><img src="{{ url_for('static', filename='/img/blog-post-1.jpeg') }}" alt="..." class="img-fluid"></a></div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date meta-last">{{ articles[i][0].create_time }}</div>
+                    <div class="category"><a href="#">{{ articles[i][1].cname }}</a></div>
+                  </div><a href="{{ url_for('views1.post', aid=articles[i][0].aid-1)  }}">
+                    <h3 class="h4">{{ articles[i][0].aname }}</h3></a>
+                  <p class="text-muted">{{ articles[i][0].content }}</p>
+                  <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                      <div class="avatar"><img src="{{ url_for('static', filename='img/avatar-3.jpg') }}" alt="..." class="img-fluid"></div>
+                      <div class="title"><span>John Doe</span></div></a>
+                    <div class="date"><i class="icon-clock"></i>{{ articles[i][0].hits }}</div>
+                    <div class="comments meta-last"><i class="icon-comment"></i>{{ articles[i][0].comments }}</div>
+                  </footer>
+                </div>
+              </div>
+              <!-- post-->
+              {% if i < article_num - 1 %}
+              <div class="post col-xl-6">
+                <div class="post-thumbnail"><a href="post.html"><img src="{{ url_for('static', filename='/img/blog-post-2.jpg') }}" alt="..." class="img-fluid"></a></div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date meta-last">{{ articles[i+1][0].create_time }}</div>
+                    <div class="category"><a href="#">{{ articles[i][1].cname }}</a></div>
+                  </div><a href="{{ url_for('views1.post', aid=articles[i+1][0].aid-1)  }}">
+                    <h3 class="h4">{{ articles[i+1][0].aname }}</h3></a>
+                  <p class="text-muted">{{ articles[i+1][0].content }}</p>
+                  <div class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                      <div class="avatar"><img src="{{ url_for('static', filename='/img/avatar-2.jpg') }}" alt="..." class="img-fluid"></div>
+                      <div class="title"><span>John Doe</span></div></a>
+                    <div class="date"><i class="icon-clock"></i>{{ articles[i+1][0].hits }}</div>
+                    <div class="comments meta-last"><i class="icon-comment"></i>{{ articles[i+1][0].comments }}</div>
+                  </div>
+                </div>
+              </div>
+              {% else %}
+                  <div class="post col-xl-6">
+                <div class="post-thumbnail"><a href="post.html"><img src="" alt="..." class="img-fluid"></a></div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date meta-last"></div>
+                    <div class="category"><a href="#"></a></div>
+                  </div><a href="post.html">
+                    <h3 class="h4"></h3></a>
+                  <p class="text-muted"></p>
+                  <div class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                      <div class="avatar"><img src="" alt="..." class="img-fluid"></div>
+                      <div class="title"><span></span></div></a>
+                    <div class="date"><i class="icon-clock"></i></div>
+                    <div class="comments meta-last"><i class="icon-comment"></i></div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+            {% endfor %}
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-template d-flex justify-content-center">
+                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                <li class="page-item"><a href="#" class="page-link active">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+              </ul>
+            </nav>
+          </div>
+        </main>
+        <aside class="col-lg-4">
+          <!-- Widget [Search Bar Widget]-->
+          <div class="widget search">
+            <header>
+              <h3 class="h6">Search the blog</h3>
+            </header>
+            <form action="#" class="search-form">
+              <div class="form-group">
+                <input type="search" placeholder="What are you looking for?">
+                <button type="submit" class="submit"><i class="icon-search"></i></button>
+              </div>
+            </form>
+          </div>
+          <!-- Widget [Latest Posts Widget]        -->
+          <div class="widget latest-posts">
+            <header>
+              <h3 class="h6">Latest Articles</h3>
+            </header>
+            <div class="blog-posts"><a href="{{ url_for('views1.post', aid=latest_articles[0].aid-1) }}">
+                <div class="item d-flex align-items-center">
+                  <div class="image"><img src="{{ url_for('static', filename='img/small-thumbnail-1.jpg') }}" alt="..." class="img-fluid"></div>
+                  <div class="title"><strong>{{ latest_articles[0].aname }}</strong>
+                    <div class="d-flex align-items-center">
+                      <div class="views"><i class="icon-eye"></i> {{ latest_articles[0].hits }}</div>
+                      <div class="comments"><i class="icon-comment"></i>{{ latest_articles[0].comments }}</div>
+                    </div>
+                  </div>
+                </div></a><a href="{{ url_for('views1.post', aid=latest_articles[0].aid-1) }}">
+                <div class="item d-flex align-items-center">
+                  <div class="image"><img src="{{ url_for('static', filename='img/small-thumbnail-2.jpg') }}" alt="..." class="img-fluid"></div>
+                  <div class="title"><strong>{{ latest_articles[1].aname }}</strong>
+                    <div class="d-flex align-items-center">
+                      <div class="views"><i class="icon-eye"></i> {{ latest_articles[1].hits }}</div>
+                      <div class="comments"><i class="icon-comment"></i>{{ latest_articles[1].comments }}</div>
+                    </div>
+                  </div>
+                </div></a><a href="{{ url_for('views1.post', aid=latest_articles[0].aid-1) }}">
+                <div class="item d-flex align-items-center">
+                  <div class="image"><img src="{{ url_for('static', filename='img/small-thumbnail-3.jpg') }}" alt="..." class="img-fluid"></div>
+                  <div class="title"><strong>{{ latest_articles[2].aname }}</strong>
+                    <div class="d-flex align-items-center">
+                      <div class="views"><i class="icon-eye"></i> {{ latest_articles[2].hits }}</div>
+                      <div class="comments"><i class="icon-comment"></i>{{ latest_articles[2].comments }}</div>
+                    </div>
+                  </div>
+                </div></a></div>
+          </div>
+          <!-- Widget [Categories Widget]-->
+          <div class="widget categories">
+            <header>
+              <h3 class="h6">Categories</h3>
+            </header>
+            {% for i in categories %}
+            <div class="item d-flex justify-content-between"><a href="#">{{ i.cname }}</a><span>{{ i.article_number }}</span></div>
+            {% endfor %}
+          </div>
+          <!-- Widget [Tags Cloud Widget]-->
+          <div class="widget tags">       
+            <header>
+              <h3 class="h6">Tags</h3>
+            </header>
+            {% for t in tags %}
+            <ul class="list-inline">
+              <li class="list-inline-item"><a href="#" class="tag">#{{ t.tname }}</a></li>
+            </ul>
+            {% endfor %}
+          </div>
+        </aside>
+      </div>
+    </div>
+{% endblock %}

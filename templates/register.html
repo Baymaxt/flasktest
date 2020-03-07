@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://user.news.cn/xhw_favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <title>个人注册</title>
+    <meta http-equiv="X-UA-Compatible" content="edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pbase.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pcommon.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/puser_reg.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/validate.css') }}">
+    <style type="text/css">
+      .error-hint {
+            height: 30px;
+            border: 1px #dddddd solid;
+       }
+       .identity-info{
+            font-size: 14px;
+       }
+    </style>
+</head>
+<body>
+<div class="main">
+<style>
+	.show{display:block;}
+	.hide{display:none;}
+	.fl{float:left;}
+	.fr{float:right;}
+	.clear{clear:both; height:0; font-size:0;overflow:hidden;}
+	#topHeader {
+	    height: 32px;
+	    text-align: center;
+	    border-bottom: 1px solid #c9c9ca;
+	    background: #f9f7f4;
+	}
+	#topHeader .top {
+	    width: 1000px;
+	    margin: 0 auto;
+	    height: inherit;
+	    padding: 0;
+	    border: 0;
+	    outline: none;
+	    list-style: none;
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	#topHeader a {
+	    float: left;
+	    height: 32px;
+	    line-height: 32px;
+	    color: #000;
+	    margin: 0 10px;
+	    font-size: 12px;
+	    cursor: pointer;
+	    outline: none;
+	    text-decoration: none;
+	    padding: 0;
+	    font-weight: normal;
+	    font-style: normal;
+	    font-family: "宋体";
+	}
+	.widthMain {
+	    margin: 0 auto;
+	    width: 1000px;
+	    padding: 10px;
+	}
+	.xhw-logo-font{
+		font-size: 18px;
+		line-height: 85px;
+		color: #0272b4;
+		margin-left: 15px;
+		font-weight: bold;
+	}
+	.login-info{
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+	}
+	.login-info p{
+		font-size: 14px;
+	}
+	.xhw-bulefont{
+		color: #0272b4;
+	}
+</style>
+<!--头部-->
+<div class="widthMain" style="border-bottom: 1px solid #0272b4; position: relative;">
+	<a class="fl" href="http://www.news.cn/" target="_blank"><img alt="logo" src="{{ url_for('static', filename='img/logo.jpg') }}"></a>
+	<p class="fl xhw-logo-font">全能django</p>
+	<div class="login-info">	    
+		<p class="hide" id="isreg_show" style="display: block;">已有账号，<a href="{{ url_for('views1.login') }}" style="color: #0d95e8">请登录</a></p>
+		<p class="hide" id="notlogin_show" style="display: none;"><span class="xhw-bulefont pointer goto_xhwlogin">登录</span><span class="xhw-bulefont">&nbsp;|&nbsp;</span><span class="xhw-bulefont pointer" id="goto_xhwreg">注册</span></p>
+		<p class="hide" id="login_show" style="display: none;">您好，<span class="xhw-bulefont" id="xhwlogin_name"></span></p>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--end-->
+    
+    <!--主体正文开始-->
+  	<div class="content">
+  		<div class="padd">
+			<div class="greenColumn column_pub_border">
+				<div class="auto">
+		            <div id="tab_setup_1" class="rectangle rectangle-3 active">
+		                1 创建账号
+		                <div class="triangle"></div>
+		            </div>
+		            <div id="tab_setup_2" class="rectangle rectangle-3 right-move">
+		                <div class="triangle-cave"></div>
+		                2 完成
+		            </div>
+        		</div>  	
+        			
+				<div class="auto mt80 setup1 " id="setup1">
+					<form action="" class="cmxform" id="commentForm" method="POST">
+						<div class="hide mt8 error-hint" id="step1-error">
+							<img class="ml5 mt5 mr5 fl" id="error_icon" src="img/error_icon.png">
+							<img class="hide ml5 mt5 mr5 fl hide" id="right_icon" src="img/right_icon.png">
+							<span class="fl" style="margin-top:4px;" id="step1-error-msg"></span>
+				        </div>
+						<div id="regbyphone">
+							<p class="mt30 title-font" id="setp1title"><font class="red-star">*</font>请输入手机号</p>
+							<div class="mt20 import-div pub-bottom-border">
+								<input type="text" class="{trim:true,require:true,mobilePhone:true} num" name="phone" id="phonenum" maxlength="11" placeholder="请输入您的手机号码" autocomplete="off">
+								<label class="error" for="phonenum" id="phonenumerr"></label>
+							</div>
+							<div class="mt15 import-div pub-bottom-border" style="height:35px;">
+								<input style="width:250px;margin-top:12px;" type="text" id="piccode" class="{trim:true,require:true,piccode:true} num" name="piccode" maxlength="4" placeholder="请输入图片验证码" autocomplete="off">
+								<label class="error" for="piccode" id="piccodeerr" style="top:15px;"></label>
+								<img alt="验证码" class="fr" id="piccodeimg" style="cursor:pointer;width: 100px;height: 34px;" src="img/verifyimg_edit">
+							</div>
+							<div class="fl mt10 import-div pub-bottom-border" style="width:255px;height:35px;">
+								<input class="fl {trim:true,require:true,phonecode:true} num" style="width:230px;margin-top:12px;" type="text" name="phonecode" id="phonecode" maxlength="5" placeholder="请输入5位验证码" autocomplete="off">
+								<label class="error" style="right:-450px;top:15px;" for="phonecode" id="phonecodeerr"></label>
+							</div>
+							<input class="fr mt10 code-button" type="button" id="sendcode" value="获取短信验证码">
+							<div class="clear"></div>
+							<div class="fl mt5 ml5 hide" id="sendcodesuc"><img class="fl" alt="验证码发送成功" src="img/right_icon.png"><span class="fl ml5 codesuc-font">验证码已发送至您的手机，请查收</span></div>
+						</div>
+                        <p class="mt50 title-font"><font class="red-star">*</font>请输入邮箱</p>
+						<div class="mt15 import-div pub-bottom-border">
+							<input class="import-input {pwd:[&#39;/user/checkpwd&#39;]}" id="password" maxlength="20" name="email" type="text" placeholder="" autocomplete="off">
+							<label id="pwdlabel" class="error" style="z-index:999;" for="password"></label><span class="pwdpassmsg"></span>
+						</div>
+                        <p class="mt50 title-font"><font class="red-star">*</font>请设置账号</p>
+						<div class="mt15 import-div pub-bottom-border">
+							<input class="import-input {pwd:[&#39;/user/checkpwd&#39;]}" id="password" maxlength="20" name="username" type="text" placeholder="账号不能为空" autocomplete="off">
+							<label id="pwdlabel" class="error" style="z-index:999;" for="password"></label><span class="pwdpassmsg"></span>
+						</div>
+						<p class="mt50 title-font"><font class="red-star">*</font>请设置密码</p>
+						<div class="mt15 import-div pub-bottom-border">
+							<input class="import-input {pwd:[&#39;/user/checkpwd&#39;]}" id="password" maxlength="20" name="password" type="password" placeholder="8-20位字符，必须由数字、字母或符号两种以上组成" autocomplete="off">
+							<label id="pwdlabel" class="error" style="z-index:999;" for="password"></label><span class="pwdpassmsg"></span>
+						</div>
+						<div class="mt20 import-div pub-bottom-border">
+							<input class="import-input {required:true,equalTo:&#39;#password&#39;}" id="pwdagain" name="confirm" maxlength="20" type="password" placeholder="请再次输入密码" autocomplete="off">
+						</div>
+						
+                        <p class="mt30 title-font" id="setp1title">&nbsp;&nbsp;请输入昵称</p>
+						<div class="mt20 import-div pub-bottom-border">
+							<input type="text" class="{trim:true,nickname:true}" name="uname" id="nickname" maxlength="18" placeholder="请输入昵称">
+						    <label class="error" for="nickname" id="nicknameerror"></label>
+						</div>	
+						<div class="fl mt10 ml10 agreementcheck"><img id="isagree" src="img/uncheck_icon.png"></div>
+						<p class="fl mt8 ml10 agreement-font"><font class="red-star">*</font>我已阅读并同意 <span class="register-agree-font">《 注册协议 》</span></p>
+						<input class="mt60 blue-button400 themebgc submit" style="height:35px;line-height:35px;" type="submit" value="注册">
+					</form>
+					<div class="mt20"></div>
+				</div>
+								
+				<div class="auto mt120 setup3 hide" id="setup3">
+					<img src="img/success_icon.png" alt="成功">
+					<p class="mt20 authentication-font usercenter" style="display: none;">注册成功，您可以进入 <span id="reglogin">个人中心</span>。</p>
+					<p class="mt20 authentication-font carryon hide" style="display: block;">注册成功，您可以 <span id="back">继续操作</span>。</p>
+					<p class="mt20 carryon hide" style="font-size: 14px; display: block;" 微软雅黑",arial;"="">本页面将在<span id="close">5</span>秒后自动跳转</p>
+					<div class="mt80"></div>
+        		</div>
+        		
+				<!-- 找回手机号继续注册流程结束 -->
+				<div class="clear"></div>
+			</div>
+		<div class="clear"></div>
+	 </div>
+	</div>
+</div>
+
+<style>
+	.adBottom {
+	    background: #FFF;
+	    padding: 20px 0;
+	}  
+	.footer {
+		font-size: 12px;
+	    font-family: "宋体";
+	    color: #454545;
+	    line-height: 22px;
+	    padding: 10px 0 30px 0;
+	    background: #FFF;
+	    text-align: center;
+	}
+</style>
+<div id="bottomBody">
+	<div class="adBottom domPC">
+		<div class="widthMain"></div>
+	</div>
+	<div class="domMobile"></div>
+	<div class="footer">
+<p>Copyright © 2000 - 2018 XINHUANET.com　All Rights Reserved.</p>
+<p>制作单位：新华网股份有限公司　　版权所有 新华网股份有限公司</p>
+	</div>
+</div>
+
+
+</body></html>
